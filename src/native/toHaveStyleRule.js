@@ -1,7 +1,9 @@
 const { matcherTest, buildReturnMessage } = require('../utils');
 
 function toHaveStyleRule(component, property, expected) {
-  const styles = component.props.style.filter((x) => x);
+  
+  // https://github.com/styled-components/jest-styled-components/pull/337
+  const styles = Array.isArray(component.props.style) ? component.props.style.filter((x) => x) : [component.props.style]
 
   /**
    * Convert style name to camel case (so we can compare)
